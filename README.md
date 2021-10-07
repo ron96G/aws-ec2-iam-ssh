@@ -1,5 +1,6 @@
 # aws-ec2-iam-ssh
 
+**Only tested on Amazon Linux. Requires binaries (useradd, usermod, userdel, groupadd)**
 ## How to 
 
 1. Add the [IAM-Policy](aws-iam-policy.json) to the role of the ec2 instance. Make sure to replace `name` with the actual group name

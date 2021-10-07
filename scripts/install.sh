@@ -54,5 +54,5 @@ fi
 
 systemctl restart sshd.service
 
-log "Initializing iam users"
+echo "Initializing iam users"
 source $SCRIPT_DIR/import_users.sh

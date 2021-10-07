@@ -67,8 +67,11 @@ delete_local_user() {
   usermod -L -s /sbin/nologin "$username" || true
 
   if [ -x $(which userdel) ]; then
-  userdel --force --remove "$username"
-  rm -f $SUDOERS_CONFIG_DIR/$username || true
+    pkill -9 -u "$username" || true
+    sleep 1
+    userdel --force --remove "$username"
+    rm -f $SUDOERS_CONFIG_DIR/$username || true
+    
   else
     log "unable to find binary to delete local user"
     exit 1
