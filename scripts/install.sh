@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 
 SCRIPT_DIR="/opt/iam-ssh"
@@ -7,9 +7,9 @@ SCRIPT_DIR="/opt/iam-ssh"
 
 
 mkdir -p $SCRIPT_DIR
-mv import_users.sh $SCRIPT_DIR
-mv authorized_keys_command.sh $SCRIPT_DIR
-mv install.sh $SCRIPT_DIR
+cp import_users.sh $SCRIPT_DIR
+cp authorized_keys_command.sh $SCRIPT_DIR
+cp install.sh $SCRIPT_DIR
 
 chown -R root:root $SCRIPT_DIR/*
 
@@ -17,7 +17,7 @@ chown -R root:root $SCRIPT_DIR/*
 IMPORT_USERS_FILE="$SCRIPT_DIR/import_users.sh"
 CRON_D_CONFIG_FILE="/etc/cron.d/import_users"
 
-if [ -f $CRON_D_CONFIG_FILE ]; then
+if ! [ -f $CRON_D_CONFIG_FILE ]; then
 
 cat > $CRON_D_CONFIG_FILE << EOF
 SHELL=/bin/bash
@@ -39,12 +39,18 @@ fi
 
 SSHD_CONFIG_FILE="/etc/ssh/sshd_config"
 COMMAND_FILE="$SCRIPT_DIR/authorized_keys_command.sh"
+SSHD_COMMAND_USER="root"
 
 chown root:root $COMMAND_FILE
 chmod 711 $COMMAND_FILE
 
-[[ $(cat "$SSHD_CONFIG_FILE" |grep "AuthorizedKeysCommand") ]] || echo "AuthorizedKeysCommand $COMMAND_FILE" >> $SSHD_CONFIG_FILE && echo "AuthorizedKeysCommand already exists"
-[[ $(cat "$SSHD_CONFIG_FILE" |grep 'AuthorizedKeysCommandUser') ]] || echo 'AuthorizedKeysCommandUser nobody' >> $SSHD_CONFIG_FILE && echo "AuthorizedKeysCommandUser already exists"
 
+if ! grep -q "^AuthorizedKeysCommand $COMMAND_FILE" ${SSHD_CONFIG_FILE}; then
+	sed -e '/AuthorizedKeysCommand / s/^#*/#/' -i $SSHD_CONFIG_FILE; echo "AuthorizedKeysCommand $COMMAND_FILE" >> $SSHD_CONFIG_FILE
+fi
+
+if ! grep -q "^AuthorizedKeysCommandUser $SSHD_COMMAND_USER" $SSHD_CONFIG_FILE; then
+	sed -e '/AuthorizedKeysCommandUser / s/^#*/#/' -i $SSHD_CONFIG_FILE; echo "AuthorizedKeysCommandUser $SSHD_COMMAND_USER" >> $SSHD_CONFIG_FILE
+fi
 
 systemctl restart sshd.service

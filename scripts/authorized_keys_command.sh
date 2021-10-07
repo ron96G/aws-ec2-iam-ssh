@@ -1,6 +1,8 @@
 #!/bin/bash -e
 
-source logger
+function log() {
+    /usr/bin/logger -i -p auth.info -t aws-ec2-iam-ssh "$@"
+}
 
 if [ -z "$1" ]; then
       log "missing username parameter"

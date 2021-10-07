@@ -1,6 +1,8 @@
 #!/bin/bash
 
-source logger
+function log() {
+    /usr/bin/logger -i -p auth.info -t aws-ec2-iam-ssh "$@"
+}
 
 ## aws config
 GROUP_NAME="jumphostSSHAccess"
@@ -69,7 +71,7 @@ delete_local_user() {
 
         if [ -x $(which userdel) ]; then
         userdel --force --remove "$username"
-        rm $SUDOERS_CONFIG_DIR/$username || true
+        rm -f $SUDOERS_CONFIG_DIR/$username || true
         else
                 log "unable to find binary to delete local user"
                 exit 1
