@@ -7,9 +7,11 @@ SCRIPT_DIR="/opt/iam-ssh"
 
 
 mkdir -p $SCRIPT_DIR
-cp ./* $SCRIPT_DIR
+cp ./* $SCRIPT_DIR 
 
 chown -R root:root $SCRIPT_DIR/*
+
+$SCRIPT_DIR/configure_selinux.sh
 
 # setup cronjob
 IMPORT_USERS_FILE="$SCRIPT_DIR/import_users.sh"

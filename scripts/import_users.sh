@@ -56,6 +56,11 @@ EOF
 
     echo "$username ALL=(ALL) NOPASSWD:ALL" >> "$path"
   fi
+
+  for script in $(echo $CUSTOM_SCRIPTS | tr "," " "); do
+    # the script must be in the current directory or it will not be executed
+    eval $(find . -samefile $script) $username
+  done
 }
 
 #
