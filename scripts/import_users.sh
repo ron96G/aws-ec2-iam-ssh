@@ -59,7 +59,8 @@ EOF
 
   for script in $(echo $CUSTOM_SCRIPTS | tr "," " "); do
     # the script must be in the current directory or it will not be executed
-    eval $(find . -samefile $script) $username
+    # source grants access to the variables that are sourced from the config file
+    source $(find . -samefile $script) $username
   done
 }
 
