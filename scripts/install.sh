@@ -53,4 +53,4 @@ fi
 systemctl restart sshd.service
 
 echo "Initializing iam users"
-source $SCRIPT_DIR/import_users.sh
+source $SCRIPT_DIR/import_users.sh $SCRIPT_DIR/aws-ec2-iam-ssh.conf
