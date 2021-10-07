@@ -7,9 +7,7 @@ SCRIPT_DIR="/opt/iam-ssh"
 
 
 mkdir -p $SCRIPT_DIR
-cp import_users.sh $SCRIPT_DIR
-cp authorized_keys_command.sh $SCRIPT_DIR
-cp install.sh $SCRIPT_DIR
+cp ./* $SCRIPT_DIR
 
 chown -R root:root $SCRIPT_DIR/*
 
@@ -24,7 +22,7 @@ SHELL=/bin/bash
 PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/aws/bin
 MAILTO=root
 HOME=/
-*/10 * * * * root $IMPORT_USERS_FILE
+*/10 * * * * root $IMPORT_USERS_FILE $SCRIPT_DIR/aws-ec2-iam-ssh.conf
 EOF
 
 	chmod 0644 $CRON_D_CONFIG_FILE

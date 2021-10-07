@@ -4,8 +4,7 @@ function log() {
   /usr/bin/logger -i -p auth.info -t aws-ec2-iam-ssh "$@"
 }
 
-## aws config
-GROUP_NAME="${IAM_GROUP_NAME}"
+source $1
 
 ## host config
 SUDOERS_CONFIG_DIR="/etc/sudoers.d"
