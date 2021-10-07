@@ -7,7 +7,7 @@
                 "iam:ListUsers",
                 "iam:GetGroup"
             ],
-            "Resource": "arn:aws:iam::904568542001:*"
+            "Resource": "arn:aws:iam::904568542001:group/<name>"
         },
         {
             "Effect": "Allow",

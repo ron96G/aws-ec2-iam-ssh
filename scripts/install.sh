@@ -26,12 +26,11 @@ MAILTO=root
 HOME=/
 */10 * * * * root $IMPORT_USERS_FILE
 EOF
-chmod 0644 $CRON_D_CONFIG_FILE
 
+	chmod 0644 $CRON_D_CONFIG_FILE
 
 else
-      echo "File $CRON_D_CONFIG_FILE already exists. Skipping..."
-
+	echo "File $CRON_D_CONFIG_FILE already exists. Skipping..."
 fi
 
 # setup sshd config
@@ -54,3 +53,6 @@ if ! grep -q "^AuthorizedKeysCommandUser $SSHD_COMMAND_USER" $SSHD_CONFIG_FILE; 
 fi
 
 systemctl restart sshd.service
+
+log "Initializing iam users"
+source $SCRIPT_DIR/import_users.sh
