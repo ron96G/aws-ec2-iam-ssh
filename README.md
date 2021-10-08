@@ -13,7 +13,7 @@
 5. cd aws-ec2-iam-ssh/scripts
 6. Make sure you are root: `whoami`
 7. Setup variables in the [configfile](scripts/aws-ec2-iam-ssh.conf)
-8. Execute the install script: `./install.sh`. It is installed into `/opt/iam-ssh/`
+8. Execute the install script: `./install.sh <configfile>`. It is installed into `/opt/iam-ssh/`
 
 ### To add a ssh pubkey to a IAM user:
 1. Go to IAM -> Users -> YOUR_USER -> Security credentials -> SSH Keys for AWS CodeCommit

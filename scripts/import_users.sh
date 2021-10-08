@@ -9,7 +9,6 @@ source $1
 
 ## host config
 SUDOERS_CONFIG_DIR="/etc/sudoers.d"
-LOCAL_GROUP_NAME="iam-users"
 
 get_iam_users() {
   if [ -n "$GROUP_NAME" ]; then
