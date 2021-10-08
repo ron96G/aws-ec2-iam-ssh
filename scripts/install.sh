@@ -48,10 +48,12 @@ chmod 711 $COMMAND_FILE
 
 # If this config already exists, comment it out
 
-if grep -q "^Match Group $LOCAL_GROUP_NAME" $SSHD_CONFIG_FILE; then
-	sed -e "/Match Group $LOCAL_GROUP_NAME/s/^#*/#/" -i $SSHD_CONFIG_FILE; 
+if grep -q "^AuthorizedKeysCommand $COMMAND_FILE" ${SSHD_CONFIG_FILE}; then
 	sed -e '/AuthorizedKeysCommand / s/^#*/#/' -i $SSHD_CONFIG_FILE; 
-	sed -e '/AuthorizedKeysCommandUser / s/^#*/#/' -i $SSHD_CONFIG_FILE; 
+fi
+
+if grep -q "^AuthorizedKeysCommandUser $SSHD_COMMAND_USER" $SSHD_CONFIG_FILE; then
+	sed -e '/AuthorizedKeysCommandUser / s/^#*/#/' -i $SSHD_CONFIG_FILE;
 fi
 
 cat >> $SSHD_CONFIG_FILE << EOF
