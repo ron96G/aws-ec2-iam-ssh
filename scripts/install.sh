@@ -34,7 +34,7 @@ else
 fi
 
 # setup sshd config
-# see https://man.openbsd.org/sshd_config
+# see https://man.openbsd.org/sshd_config#AuthorizedKeysCommand
 
 SSHD_CONFIG_FILE="/etc/ssh/sshd_config"
 COMMAND_FILE="$SCRIPT_DIR/authorized_keys_command.sh"

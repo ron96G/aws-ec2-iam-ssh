@@ -4,6 +4,7 @@ function log() {
   /usr/bin/logger -i -p auth.info -t aws-ec2-iam-ssh "$@"
 }
 
+[[ "$1" == "" ]] && echo "Missing required configfile parameter" && exit 1
 source $1
 
 ## host config
