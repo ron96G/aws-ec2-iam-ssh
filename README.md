@@ -15,6 +15,14 @@
 7. Setup variables in the [configfile](scripts/aws-ec2-iam-ssh.conf)
 8. Execute the install script: `./install.sh`. It is installed into `/opt/iam-ssh/`
 
+### To add a ssh pubkey to a IAM user:
+1. Go to IAM -> Users -> YOUR_USER -> Security credentials -> SSH Keys for AWS CodeCommit
+2. Click `Upload SSH public key`, paste your ssh pubkey into the field and save
+3. When trying to connect using ssh, use your corresponding private key like `ssh -i <privkey_file> <user>@<host>`
+
+### To generate a ssh key pair run:
+`ssh-keygen -t rsa -b 4096 -f <filename>`
+
 ## Features
 
 1. Automatically create users on the ec2-instance that are defined in the IAM group
